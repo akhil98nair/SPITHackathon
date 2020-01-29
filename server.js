@@ -103,11 +103,7 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 //Setting the homepage or start page Route
 app.get('/', function (req, res) {
-
-  console.log("Hii")
-  res.render('pages/index');
-
-
+  res.render('pages/start');
 });
 
 
