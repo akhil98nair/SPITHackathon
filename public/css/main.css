@@ -10,7 +10,7 @@
   body{
     background-color: #cbf1f5;
     background: rgb(153,138,191);
-    background: linear-gradient(90deg, rgba(153,138,191,1) 0%, rgba(189,138,191,1) 57%, rgba(188,0,255,1) 100%);    
+    background: linear-gradient(90deg, rgba(153,138,191,1) 0%, rgba(189,138,191,1) 71%, rgba(179,0,255,0.9556022237996761) 100%); 
 }
   .bg-image {
     width: 15rem;
