@@ -114,6 +114,9 @@ app.get('/loginpage', function (req, res) {
   res.render('pages/loginpage');
 });
 
+app.get('/regpage', function (req, res) {
+  res.render('pages/regpage');
+});
 
 //Creating a Listen Port for accepting Requests
 app.listen(port, function () {
