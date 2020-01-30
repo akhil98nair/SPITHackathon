@@ -106,6 +106,10 @@ app.get('/', function (req, res) {
   res.render('pages/start');
 });
 
+app.get('/loginpage', function (req, res) {
+  res.render('pages/loginpage');
+});
+
 
 //Creating a Listen Port for accepting Requests
 app.listen(port, function () {
