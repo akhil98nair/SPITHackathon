@@ -233,7 +233,7 @@ h1{
     padding-bottom: 20px;
 }
 
-@media (max-width: 740px) {
+@media (max-width: 824px) {
     .footer {
         margin-top: 10%;
         height: 30%;
@@ -243,7 +243,7 @@ h1{
         color: #fff;
     }
     #about{
-        margin-top: 190%;
+        margin-top: 270%;
         height: 30%;
         position: relative;
         padding-top: initial;
@@ -251,16 +251,18 @@ h1{
     }
     #start_intro{
         width: 100%;
-        font-size: 1.75rem;
+        font-size: 1.20rem;
         text-align: center;
-       
+    }
+    h1{
+        font-size: 2.20rem;
     }
     .card {
         margin-left: auto;
         margin-right: auto;
         margin-bottom: 10px;
         border-radius: 20px;
-        height: 20%;
+        height: 10%;
         width: 80%;
         padding-bottom: 10px;
     }
