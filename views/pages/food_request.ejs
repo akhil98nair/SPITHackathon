@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+   
+<head >
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+  </head>
+  <header>
+        <%- include('../partials/header.ejs') %>
+    </header>
+    <section id="regsection"> 
+
+        <section id="food_request">
+            <form name="sentMessage" id="regform">
+                <div class="control-group">
+                    <div class="form-group floating-label-form-group controls mb-0 pb-1">
+
+                        <input class="form-control" id="name" name="name" type="text" placeholder="Name"
+                            required="required">
+                        <p class="help-block text-danger"></p>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="form-group floating-label-form-group controls mb-0 pb-1">
+
+                        <input class="form-control" id="email" name="email" type="email" placeholder="Email-Id"
+                            required="required">
+                        <p class="help-block text-danger"></p>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="form-group floating-label-form-group controls mb-0 pb-1">
+
+                        <input class="form-control" id="mobile_no" name="mobile_no" type="text"
+                            placeholder="Mobile Number" required="required">
+                        <p class="help-block text-danger"></p>
+                    </div>
+                </div>
+
+                <!-- <div class="control-group">
+                    <div class="form-group floating-label-form-group controls mb-0 pb-1">
+                        <input class="form-control" id="food_desc" name="food_desc" type="text"
+                            placeholder="Food Description">
+                        <p class="help-block text-danger"></p>
+                    </div>
+                </div> -->
+
+                <div class="control-group">
+                    <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                        <input class="form-control" id="address" name="address" type="text" placeholder="Address"
+                            required="required">
+                        <p class="help-block text-danger"></p>
+                    </div>
+                </div>
+
+                <div class="control-group col-lg-3" style="margin-left: auto;margin-right: auto;">
+                    <div class="form-group">
+                        <input class="form-control btn btn-primary" class="btn" id="submit" name="submit" type="submit" value="Submit">
+                    </div>
+                </div>
+            </form>
+        </section>
+        
+
+    </section>
+
+    <footer>
+        <%- include('../partials/footer.ejs') %>
+    </footer>
+
+<>
+
+</html>
