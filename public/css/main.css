@@ -59,13 +59,13 @@ a {
 
 }
 
-#regform {
+/* #regform {
     width: 700px;
     margin-left: auto;
     margin-right: auto;
     padding-top: 40px;
     padding-bottom: 40px;
-}
+} */
 
 #regsection {   
     margin-top: 30px;
@@ -75,9 +75,8 @@ a {
     margin-right: auto;
     background-color: white;
     border-radius:20px;
-    
-
 }
+
 #regtoggle{
     padding-top: 15px;
     margin-left: auto;
@@ -213,7 +212,7 @@ a {
     height: 80px;
     color: #fff;
 
-
+font-size: 1.25rem;
     background-color: #010101;
 }
 
@@ -225,4 +224,42 @@ a {
 .card {
     border-radius: 20px;
     height: 420px;
+}
+
+#donordashboard{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+#volunteerdashboard{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+#donatefood {   
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 65%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    border-radius:20px;
+    text-align: center;
+}
+form{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 40px;
+    padding-bottom: 40px;
+   
+    text-align: center;
+}
+
+.btn{
+width:100px;
+margin-left: auto;
+margin-right: auto;
+text-align: center;
 }
