@@ -114,6 +114,10 @@ app.get('/loginpage', function (req, res) {
   res.render('pages/loginpage');
 });
 
+app.get('/foodrequest', function (req, res) {
+  res.render('pages/food_request');
+});
+
 app.get('/regpage', function (req, res) {
   res.render('pages/regpage');
 });
