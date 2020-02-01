@@ -128,6 +128,115 @@ app.get('/regpage', function (req, res) {
   res.render('pages/regpage');
 });
 
+app.post('/submit_regform',urlencodedParser,function(req,res){
+
+  try {
+    var qry = `SELECT email_id,mobile_no FROM user_details WHERE  email_id = '${req.body.email_id}' or mobile_no = '${req.body.mobile_no}' `
+    connection.query(qry, function (error, results) {
+      if (error) console.log(error);
+      else {
+        console.log(results)
+        if (results.length <= 0) {
+
+          var hash = bcrypt.hashSync(req.body.user_password, saltRounds);
+          var document = mysqlBackbone.Model.extend({
+            connection: connection,
+            tableName: "user_details",
+          });
+        
+          var user = new document({
+            name: req.body.name,
+            email_id: req.body.email_id,
+            password:hash,
+            mobile_no:req.body.mobile_no,
+            address: req.body.address,
+            account_type: req.body.account_type,
+          });
+          user.save().then(function (result) {
+            if (result.affectedRows !== 0) {
+              console.log("User Created");
+              res.send('Account Created')
+            }
+          });
+
+        }
+        else {
+           if (results[0].email_id.toLowerCase() == req.body.email_id.toLowerCase()) {
+            res.send("email id already exists");
+          }
+          else if (results[0].mobile_no == req.body.mobile_no) {
+            res.send("mobile no id already exists");
+          }
+
+          else {
+            // console.log("No Problem")
+          }
+        }
+      }})}
+        catch{console.log("Error")}
+
+  
+})
+
+// Post Route for Login Submit Button
+app.post('/login_submit', urlencodedParser, function (req, res) {
+
+  try {
+    // //var connection = getConnection();
+    var email_id = req.body.username;
+    var password = req.body.password;
+    if (email_id && password) {
+      var qry = `select name, user_id, user_type, email_id, user_password from users where email_id='${req.body.username}';`
+      connection.query(qry, function (error, results, fields) {
+        if (error) console.log(error);
+        else {
+          if (results.length > 0) {
+            var result = bcrypt.compareSync(req.body.password, results[0].user_password);
+          }
+
+          if (results.length > 0 && result == true) {
+            req.session.user_type = results[0].user_type;
+            req.session.user_id = results[0].user_id;
+            req.session.email_id = results[0].email_id;
+            req.session.username = results[0].name;
+            var document = mysqlBackbone.Model.extend({
+              connection: connection,
+              tableName: "logs",
+            });
+            var doc = new document({
+              user_id: req.session.user_id,
+              action_performed: "Login",
+              action_info: req.session.user_id + " Logged In",
+              date: dateTime()
+
+            });
+            doc.save().then(function (result) {
+              if (result.affectedRows > 0) {
+                // console.log("Log Added.");
+                var redirect = req.session.returnTo || '/update_delete_users';
+                res.send({ login: "Login Successful", redirect: redirect });
+              }
+            });
+            // res.redirect(req.session.returnTo || '/update_delete_users')
+          }
+          else {
+            // console.log('Incorrect Username and/or Password!');
+            res.send("Invalid Credentials");
+          }
+        }
+
+      });
+    }
+    else {
+      // console.log('Please enter Username and Password!');
+      res.redirect("/login");
+    }
+  }
+  catch (error) {
+    console.log(error);
+  }
+});
+
 
 app.get('/dashboard', function (req, res) {
   res.render('pages/dashboard');
