@@ -31,7 +31,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
 
-        <% if(account_type == "donor" || !user) { %> 
+        <% if(account_type == "donor" || !username) { %> 
         <li class="nav-item active">
           <a class="nav-link my-2 my-lg-0" href="/donatefood">Donate Food</a>
         </li> <% } %>
@@ -42,15 +42,15 @@
         <li class="nav-item active">
           <a class="nav-link my-2 my-lg-0" href="/supportus">Partner with Us</a>
         </li>
-        <% if(user){ %>
+        <% if(username){ %>
         <li class="nav-item active">
           <a class="nav-link my-2 my-lg-0" href="/dashboard">Dashboard</a>
         </li> <% } %>
-        <% if(!user){ %>
+        <% if(!username){ %>
         <li class="nav-item active">
           <a class="nav-link my-2 my-lg-0" href="/loginpage">Login/Sign-up</a>
         </li> <% } %>
-        <% if(user){ %>
+        <% if(username){ %>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown"
             aria-haspopup="false" aria-expanded="false">

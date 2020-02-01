@@ -22,7 +22,6 @@ var datetime = new Date();
 var today_date = datetime.toISOString().slice(0, 10);
 //joining path of directory 
 const directoryPath = path.join(__dirname, 'public/uploads');
-var doc_id, insert_id;
 
 //memory leak issue solving line and session creation
 var MemoryStore = require('memorystore')(session)
@@ -61,11 +60,11 @@ connection.connect(function (err) {
 });
 
 
-//for cache control
-app.use(function (req, res, next) {
-  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-  next();
-})
+// //for cache control
+// app.use(function (req, res, next) {
+//   res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+//   next();
+// })
 
 
 
@@ -99,18 +98,29 @@ app.use(express.static(__dirname + "/public"));
 app.use(express.static(__dirname + "/views/partials"));
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
+let count = 0;
 //for passing session to ejs
 app.use(function (req, res, next) {
-  res.locals.user = req.session.user_id;
+  count++
+  res.locals.user_id = req.session.user_id;
+  console.log( req.session.user_id)
   res.locals.account_type = req.session.account_type;
   res.locals.username = req.session.username;
   next();
+  console.log(count)
+  console.log(res.locals.user_id,res.locals.account_type,res.locals.username)
 });
 
 
 //Setting the homepage or start page Route
 app.get('/', function (req, res) {
   res.render('pages/start');
+});
+app.get('/loginpage', function (req, res) {
+  if (req.session.account_type == undefined) {
+    res.render('pages/loginpage');
+  } else {
+    res.redirect('/');}
 });
 
 app.get('/map', function (req, res) {
@@ -124,17 +134,8 @@ app.get('/hungerspot', function (req, res) {
   res.render('pages/hunger_spot');}
 });
 
-app.get('/loginpage', function (req, res) {
-  
-    res.redirect('/loginpage');
-  
-  
-});
 app.get('/supportus', function (req, res) {
   res.render('pages/supportus');
-});
-app.get('/foodrequest', function (req, res) {
-  res.render('pages/food_request');
 });
 
 app.get('/regpage', function (req, res) {
