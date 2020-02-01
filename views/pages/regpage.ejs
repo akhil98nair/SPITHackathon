@@ -17,6 +17,65 @@
             $("#donor_reg").show()
         }
     </script>
+    
+    <script type="text/javascript">
+        
+        function validateData(){
+            var flag = true;
+            //var user_id = document.regForm.user_id.value;
+            var name=document.regForm.name.value;
+            var email_id=document.regForm.email.value;
+            var address=document.regForm.location.value;
+            var mobile_no = document.regForm.mobile_no.value;
+            //var department =document.regForm.department.value;
+            //var designation =document.regForm.designation.value;
+            var password = document.regForm.password.value;
+            var password_confirm = document.regForm.confirm_password.value;
+            var account_type = document.regForm.account_type.value;
+            // var decimal=  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+
+            var check=[];
+            if(account_type==""){
+                check.push('Account type is Required')
+            }
+
+            if(/^[a-zA-Z ]{2,30}$/.test(name) == false){
+                check.push('Name Invalid/Required')
+            }
+            if(/^(\+\d{1,3}[- ]?)?\d{10}$/.test(mobile_no)== false){
+                check.push(' Mobile Number Invalid/Required')   
+            }
+            if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email_id) == false){
+                check.push(' Email Invalid/Required')
+            }
+            
+            if(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/.test(password) == false){
+                check.push('Your password must contain atleast one uppercase, one lowercase, one numeric, one special character and should have minimum 8 characters ')
+            }
+            if(password !== password_confirm){
+                check.push(' Password do not match ')
+
+            }
+            if(address==""){
+                check.push('Address Required')  
+            }
+            
+            
+            if(check.length > 0){
+                swal({
+                    title: "Invalid Input",
+                    text:check.join( '\n'),
+                    icon: "warning"
+                    
+                  })
+                //   check = [];
+                  console.log(check)
+                flag=false;
+      }
+            return flag;
+        }
+    </script>
+
 </head>
 
 
@@ -165,6 +224,84 @@
         </section>
 
     </section>
+    <script>
+        $(document).ready(function(){
+
+            $("#submit").click(function(e){
+                e.preventDefault();
+                // console.log("Prevented");
+                // return validateData();
+               if(validateData() == true){
+
+                //let user_id = $("#user_id").val();
+                let name = $("#name").val();
+                let email_id = $("#email").val();
+                let user_password = $("#password").val();
+                let address = $("#location").val();
+                let mobile_no = $("#mobile_no").val();
+                //let department = $("#department").val();
+                //let designation = $("#designation").val();
+                let user_type = $("#account_type").val();
+
+                var url = "/submit_regform"
+
+                if(name !=="" || email_id !=="" || user_password !=="" ||  mobile_no !=="" || address!=="" || user_type !== "")
+                {
+                $.post(url, {name:name, email_id:email_id,user_password:user_password,mobile_no:mobile_no,address:address,user_type:user_type}).done(function(data){
+                    //console.log(data);
+                    $("input#user_id").css("border"," 1px solid #ced4da")
+                    
+                    $("input#email_id").css("border"," 1px solid #ced4da")
+
+                    /*col-md-4 col-sm-4 col-4 col-lg-2
+col-md-8 col-sm-8 col-6 col-lg-6
+error col-lg-4*/
+                    if(data == "user id already exists"){
+
+                        $("span#user_id").removeClass("error").addClass("show_error col-lg-3");
+                        $("label#user_id").addClass("col-6 col-md-4 col-sm-4 col-4 col-lg-2")
+                        $("input#user_id").css("border"," 2px solid red").addClass("col-9 col-md-8 col-sm-8 col-6 col-lg-5");
+                    }
+                    else if(data == "email id already exists"){
+
+                        $("label#user_id").addClass("col-6 col-md-4 col-sm-4 col-4 col-lg-3")
+                        $("input#user_id").css("border"," 1px solid #ced4da").addClass("col-9 col-md-8 col-sm-8 col-6 col-lg-8");
+                        $("span#user_id").removeClass("show_error col-lg-3").addClass("error");
+                        $("span#email_id").removeClass("error").addClass("show_error col-lg-3");
+                        $("label#email_id").addClass("col-6 col-md-4 col-sm-4 col-4")
+                        $("input#email_id").css("border"," 2px solid red").addClass("col-9 col-md-8 col-sm-8 col-6 col-lg-5");
+                    }
+                    else if(data == "mobile no id already exists"){
+                        $("label#email_id").addClass("col-6 col-md-4 col-sm-4 col-4 col-lg-3")
+                        $("input#email_id").css("border"," 1px solid #ced4da").addClass("col-9 col-md-8 col-sm-8 col-6 col-lg-8");
+                        $("span#email_id").removeClass("show_error col-lg-3").addClass("error");
+                        $("span#mobile_no").removeClass("error").addClass("show_error col-lg-3");
+                        $("label#mobile_no").addClass("col-6 col-md-4 col-sm-4 col-4")
+                        $("input#mobile_no").css("border"," 2px solid red").addClass("col-9 col-md-8 col-sm-8 col-6 col-lg-5");
+                    }
+                    if(data =="Account Created"){
+                        
+                       
+                        swal({
+                            title: "Account created",
+                            text: "Account created Successfully",
+                            icon: "success"
+                            
+                          })
+                          .then((willDelete) => {
+                            if (willDelete) {
+                              var url = "/";
+                              $(location).attr('href',url);
+                            }
+                          });   
+                    }
+                });
+            }
+        }
+            })
+        });
+     </script>   
+
 
     <footer>
         <%- include('../partials/footer.ejs') %>
