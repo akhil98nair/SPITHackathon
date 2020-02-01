@@ -2,96 +2,74 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="bootstrap/jquery-3.4.1.slim.min.js"></script>
-    <script src="bootstrap/bootstrap.min.js"></script>
-    <script src="bootstrap/popper.min.js"></script>
-    <script src="bootstrap/jquery-3.4.1.min.js"></script>
-    <script src="node_modules/ejs/ejs.min.js"></script>
-    <script src="bootstrap/sweetalert.min.js"></script>
-    <link rel="stylesheet" href="bootstrap/bootstrap.min.css" />
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="css/cyrillic.css" rel="stylesheet" type="text/css">
-    <link href="css/latin_font.css" rel="stylesheet" type="text/css">
-    <link href="css/main.css" rel="stylesheet">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="bootstrap/jquery-3.4.1.slim.min.js"></script>
+  <script src="bootstrap/jquery-3.4.1.min.js"></script>
+  <script src="bootstrap/bootstrap.min.js"></script>
+  <script src="bootstrap/popper.min.js"></script>
+  <script src="node_modules/ejs/ejs.min.js"></script>
+  <script src="bootstrap/sweetalert.min.js"></script>
+  <link rel="stylesheet" href="bootstrap/bootstrap.min.css" />
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="css/cyrillic.css" rel="stylesheet" type="text/css">
+  <link href="css/latin_font.css" rel="stylesheet" type="text/css">
+  <link href="css/main.css" rel="stylesheet">
+  <title>Document</title>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark h5 w-100 p-3"> 
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark h5 w-100 p-3">
     <a class="navbar-brand" href="/">Good Food</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-  
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
+
+        <% if(account_type == "donor" || !user) { %> 
         <li class="nav-item active">
-          <a class="nav-link" href="#getinvolved">
-            Our Initiatives
-          </a>
-        </li>
-          
-            <li class="nav-item active">
-              <a class="nav-link my-2 my-lg-0" href="/donatefood">Donate Food</a>
-            </li>
+          <a class="nav-link my-2 my-lg-0" href="/donatefood">Donate Food</a>
+        </li> <% } %>
+<% if(account_type == "volunteer") { %> 
         <li class="nav-item active">
-          <a class="nav-link my-2 my-lg-0" href="/foodrequest">Request for Food</a>
-        </li> 
-        <li class="nav-item active">
-          <a class="nav-link my-2 my-lg-0" href="/addhungerspot">Add a Hunger Feed Spot</a>
-        </li>          
+          <a class="nav-link my-2 my-lg-0" href="/hungerspot">Add a Hunger Feed Spot</a>
+        </li><% } %>
         <li class="nav-item active">
           <a class="nav-link my-2 my-lg-0" href="/supportus">Partner with Us</a>
-        </li> 
+        </li>
+        <% if(user){ %>
+        <li class="nav-item active">
+          <a class="nav-link my-2 my-lg-0" href="/dashboard">Dashboard</a>
+        </li> <% } %>
+        <% if(!user){ %>
         <li class="nav-item active">
           <a class="nav-link my-2 my-lg-0" href="/loginpage">Login/Sign-up</a>
+        </li> <% } %>
+        <% if(user){ %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="false" aria-expanded="false">
+            Welcome: <%= username %>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/logout">Logout</a>
+
+          </div>
+
         </li>
-                    <li class="nav-item active">
-                      <a class="nav-link my-2 my-lg-0" href="/dashboard">Dashboard</a>
-                    </li>
+        <%}%>
       </ul>
 
     </div>
-  </nav>
-    <!-- <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navbar">
-      
-        <a class="navbar-brand" href="/" style="font-size: 600;"><img class="navbar-brand" src="img/food.png" height="70vh" width="70vw" alt=""><span class="sr-only">(current)</span></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            
-            <li class="nav-item active">
-              <a class="nav-link my-2 my-lg-0" href="/">Our Initiatives</a>
-            </li>
-                <li class="nav-item active">
-                  <a class="nav-link my-2 my-lg-0" href="/donatefood">Donate Food</a>
-                </li>
-            <li class="nav-item active">
-              <a class="nav-link my-2 my-lg-0" href="/foodrequest">Request for Food</a>
-            </li> 
-            <li class="nav-item active">
-              <a class="nav-link my-2 my-lg-0" href="#">Add a Hunger Feed Spot</a>
-            </li>          
-            <li class="nav-item active">
-              <a class="nav-link my-2 my-lg-0" href="#">Partner with Us</a>
-            </li> 
-            <li class="nav-item active">
-              <a class="nav-link my-2 my-lg-0" href="/loginpage">Login/Sign-up</a>
-            </li>
-                        <li class="nav-item active">
-                          <a class="nav-link my-2 my-lg-0" href="/dashboard">Dashboard</a>
-                        </li>
-          </ul>
-          
-        </div>
-      </nav> -->
-      
+    
+  </nav> 
+
+   
 </body>
 
 </html>

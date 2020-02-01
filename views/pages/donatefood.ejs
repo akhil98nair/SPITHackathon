@@ -2,82 +2,71 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
 </head>
 
 <body>
-    <header>
-        <%- include('../partials/header.ejs') %>
-    </header>
-    <section id="donatefood">
-        <div>
-            <form>
-                <div class="control-group">
-                    <div class="form-group floating-label-form-group controls mb-0 pb-1">
+  <header>
+    <%- include('../partials/header.ejs') %>
+  </header>
+  <section id="donatefood">
+    <div>
+      <form>
+        <div class="control-group">
+          <div class="form-group floating-label-form-group controls mb-0 pb-1">
 
-                        <input class="form-control" id="food_description" name="food_description" type="text"
-                            placeholder="Food Description" required="required">
-                        <p class="help-block text-danger"></p>
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <div class="form-group floating-label-form-group controls mb-0 pb-1">
-
-                        <input class="form-control" id="location" name="Locaton" type="text" placeholder="Locaton"
-                            required="required">
-                        <p class="help-block text-danger"></p>
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <div class="form-group floating-label-form-group controls mb-0 pb-1">
-
-                        <input class="form-control btn btn-primary" id="submit" name="submit" type="submit" value="Submit" data-toggle="modal" data-target="#nearbyslums">                          
-
-                    </div>
-                </div>
-            </form>
-        </div>
-    </section>
-
-
-    <!-- Modal -->
-    <div class="modal fade"  id="nearbyslums" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel"> Nearby Volunteer Details</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body" >
-  
-              <div class="container">
-                  <div class="row">
-                    <div class="col">
-                      <div style="  height: 400px; width: 100%; background-color: grey;" id="map"></div>
-                      <script type="text/javascript" src="js/demo.js"></script>
-                      <script async defer
-                          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCIc93upSOh6x63OsPUntFZVcXMO_W6qLM&callback=initMap">
-                      </script>
-                  </div>
-                </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <input class="form-control btn btn-primary" id="submit" name="submit" type="submit" value="Nearby Volunteer" data-toggle="modal" data-target="#nearbyvolunteers">
+            <input class="form-control" id="food_description" name="food_description" type="text"
+              placeholder="Food Description" required="required">
+            <p class="help-block text-danger"></p>
           </div>
         </div>
-      </div>
+
+        <div class="control-group">
+          <div class="form-group floating-label-form-group controls mb-0 pb-1">
+
+            <input class="form-control" id="location" name="Locaton" type="text" placeholder="Locaton"
+              required="required">
+            <p class="help-block text-danger"></p>
+          </div>
+        </div>
+        <div class="control-group row" >
+          <div class="form-group floating-label-form-group controls mb-0 pb-1" style="text-align: left;">
+            <table>
+              <tr >
+                <td class="col-12">How Old is the food?</td >
+              <td class="col-12"><select>
+                <option>0-2</option>
+                <option>2-4</option>
+                <option>4-6</option>
+                <option>6-8</option>
+                <option>8-10</option>
+                <option>10-12</option>
+              </select></td>
+              </tr> 
+            </table>
+            
+            
+          </div>
+        </div>
+
+        <div class="control-group">
+          <div class="form-group floating-label-form-group controls mb-0 pb-1">
+            <input class="form-control btn btn-primary" id="submit_donateform" name="submit" type="submit"
+              value="Submit">
+          </div>
+        </div>
+      </form>
     </div>
+  </section>
 
-    <!-- Volunteer Details Modal -->
-<div class="modal fade"  id="nearbyvolunteers" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+  <!-- Modal -->
+  <div class="modal fade" id="nearbyslums" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -86,54 +75,110 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body" >
+        <div class="modal-body">
 
-            <div class="container">
-                <div class="row">
-                  <div class="col">
-                    <div class="card" style="width: 15rem;height:12rem">
-                        <div class="card-body">
-                          <h5 class="card-title">Volunteer 1</h5>
-                          <p class="card-text">Contact No:8877887457</p>
-                          <a href="#" class="btn btn-primary" style="text-align:center">Call</a>
-                        </div>
-                      </div>
-                  </div>
-                  <div class="col">
-                    <div class="card" style="width: 15rem;height:12rem">
-                        <div class="card-body">
-                          <h5 class="card-title">Volunteer 2</h5>
-                          <p class="card-text">Contact No:8877887457</p>
-                          <a href="#" class="btn btn-primary" style="text-align:center">Call</a>
-                        </div>
-                      </div>
-                  </div>
-                  <div class="col">
-                    <div class="card" style="width: 15rem;height:12rem">
-                        <div class="card-body">
-                          <h5 class="card-title">Volunteer 2</h5>
-                          <p class="card-text">Contact No:8877887457</p>
-                          <a href="#" class="btn btn-primary" style="text-align:center">Call</a>
-                        </div>
-                      </div>
-                  </div>
-                </div>
+          <div class="container">
+            <div class="row">
+              <div class="col">
+                <div style="  height: 400px; width: 100%; background-color: grey;" id="map"></div>
+                <script type="text/javascript" src="js/demo.js"></script>
+                <script async defer
+                  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCIc93upSOh6x63OsPUntFZVcXMO_W6qLM&callback=initMap">
+                  </script>
               </div>
-           
-       
-            
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <input class="form-control btn btn-primary" id="submit" name="submit" type="submit" value="Nearby Volunteer"
+              data-toggle="modal" data-target="#nearbyvolunteers">
+          </div>
         </div>
       </div>
     </div>
-  </div>
+
+    <!-- Volunteer Details Modal -->
+    <div class="modal fade" id="nearbyvolunteers" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel"> Nearby Volunteer Details</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <div class="container">
+              <div class="row">
+                <div class="col">
+                  <div class="card" style="width: 15rem;height:12rem">
+                    <div class="card-body">
+                      <h5 class="card-title">Volunteer 1</h5>
+                      <p class="card-text">Contact No:8877887457</p>
+                      <a href="#" class="btn btn-primary" style="text-align:center">Call</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card" style="width: 15rem;height:12rem">
+                    <div class="card-body">
+                      <h5 class="card-title">Volunteer 2</h5>
+                      <p class="card-text">Contact No:8877887457</p>
+                      <a href="#" class="btn btn-primary" style="text-align:center">Call</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card" style="width: 15rem;height:12rem">
+                    <div class="card-body">
+                      <h5 class="card-title">Volunteer 2</h5>
+                      <p class="card-text">Contact No:8877887457</p>
+                      <a href="#" class="btn btn-primary" style="text-align:center">Call</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
     <footer>
-        <%- include('../partials/footer.ejs') %>
+      <%- include('../partials/footer.ejs') %>
     </footer>
+    <script>
+      // when DOM is ready
+      $(document).ready(function () {
 
+        // Attach Button click event listener 
+        $("#submit_donateform").on('click', function (e) {
+          e.preventDefault();
+          if ($('#food_description').val() !== "" && $('#location').val() !== "") {
+            // show Modal
+            $('#nearbyslums').modal('show');
+          }
+          else {
+            swal({
+              title: "Fill the details",
+              text: "Please fill the details",
+              icon: "warning",
+              dangerMode: true,
+            })
+          }
+
+        });
+      });
+    </script>
 </body>
 
 </html>

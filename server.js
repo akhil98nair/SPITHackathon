@@ -99,15 +99,17 @@ app.use(express.static(__dirname + "/public"));
 app.use(express.static(__dirname + "/views/partials"));
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
+//for passing session to ejs
+app.use(function (req, res, next) {
+  res.locals.user = req.session.user_id;
+  res.locals.account_type = req.session.account_type;
+  res.locals.username = req.session.username;
+  next();
+});
 
 
 //Setting the homepage or start page Route
 app.get('/', function (req, res) {
-  res.render('pages/start');
-});
-
-//Setting the homepage or start page Route
-app.post('/', function (req, res) {
   res.render('pages/start');
 });
 
@@ -116,11 +118,17 @@ app.get('/map', function (req, res) {
 });
 
 app.get('/hungerspot', function (req, res) {
-  res.render('pages/hunger_spot');
+  if (!req.session.account_type !== "volunteer") {
+    res.redirect('/loginpage');
+  } else {
+  res.render('pages/hunger_spot');}
 });
 
 app.get('/loginpage', function (req, res) {
-  res.render('pages/loginpage');
+  
+    res.redirect('/loginpage');
+  
+  
 });
 app.get('/supportus', function (req, res) {
   res.render('pages/supportus');
@@ -198,11 +206,12 @@ app.post('/login_submit', urlencodedParser, function (req, res) {
         else {
           if (results.length > 0) {
             var result = bcrypt.compareSync(req.body.password, results[0].password);
-            console.log(result)
+            
           }
+          console.log(results)
 
           if (results.length > 0 && result == true) {
-            req.session.user_type = results[0].user_type;
+            req.session.account_type = results[0].account_type;
             req.session.user_id = results[0].user_id;
             req.session.email_id = results[0].email_id;
             req.session.username = results[0].name;
@@ -233,14 +242,33 @@ app.post('/login_submit', urlencodedParser, function (req, res) {
 
 
 app.get('/dashboard', function (req, res) {
-  res.render('pages/dashboard');
+  if (req.session.account_type == "volunteer" || req.session.account_type == "donor") {
+    res.render('pages/dashboard');
+    
+  }
+  else{
+    res.redirect('/loginpage');
+    }
 })
 
 app.get('/donatefood', function (req, res) {
+  if (!req.session.account_type !== "donor") {
+    res.redirect('/loginpage');
+  } else {
   res.render('pages/donatefood');
+}
 })
 app.get('/addhungerspot', function (req, res) {
+  if (!req.session.account_type !== "volunteer") {
+    res.redirect('/loginpage');
+  } else {
   res.render('pages/addhungerspot');
+  }
+})
+
+app.get('/logout',function(req,res){
+  req.session.destroy();
+  res.redirect("/");
 })
 //Creating a Listen Port for accepting Requests
 app.listen(port, function () {
