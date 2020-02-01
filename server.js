@@ -128,6 +128,55 @@ app.get('/regpage', function (req, res) {
   res.render('pages/regpage');
 });
 
+app.post('/submit_regform',urlencodedParser,function(req,res){
+
+  try {
+    var qry = `SELECT email_id,mobile_no FROM user_details WHERE  email_id = '${req.body.email_id}' or mobile_no = '${req.body.mobile_no}' `
+    connection.query(qry, function (error, results) {
+      if (error) console.log(error);
+      else {
+        if (results.length <= 0) {
+
+          var hash = bcrypt.hashSync(req.body.user_password, saltRounds);
+          var document = mysqlBackbone.Model.extend({
+            connection: connection,
+            tableName: "user_details",
+          });
+        
+          var user = new document({
+            name: req.body.name,
+            email: req.body.email,
+            password:hash,
+            mobile_number:req.body.mobilr_no,
+            location: req.body.location,
+            account_type: req.body.account_type,
+          });
+          user.save().then(function (result) {
+            if (result.affectedRows !== 0) {
+              console.log("User Created");
+              res.send('Account Created')
+            }
+          });
+
+        }
+        else {
+           if (results[0].email_id.toLowerCase() == req.body.email_id.toLowerCase()) {
+            res.send("email id already exists");
+          }
+          else if (results[0].mobile_no == req.body.mobile_no) {
+            res.send("mobile no id already exists");
+          }
+
+          else {
+            // console.log("No Problem")
+          }
+        }
+      }})}
+        catch{console.log("Error")}
+
+  
+})
+
 
 app.get('/dashboard', function (req, res) {
   res.render('pages/dashboard');
