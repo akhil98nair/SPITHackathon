@@ -3,6 +3,16 @@
 const CACHE = "pwabuilder-precache";
 const precacheFiles = [
   /* Add an array of files to precache for your app */
+  "/",
+  "/hungerspot",
+  "/loginpage",
+  "/map",
+  "/supportus",
+  "/foodrequest",
+  "/regpage",
+  "/dashboard",
+  "/donatefood",
+  "/addhungerspot"
 ];
 
 self.addEventListener("install", function (event) {
