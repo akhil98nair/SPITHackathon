@@ -113,7 +113,9 @@ app.get('/map', function (req, res) {
 app.get('/loginpage', function (req, res) {
   res.render('pages/loginpage');
 });
-
+app.get('/supportus', function (req, res) {
+  res.render('pages/supportus');
+});
 app.get('/foodrequest', function (req, res) {
   res.render('pages/food_request');
 });
