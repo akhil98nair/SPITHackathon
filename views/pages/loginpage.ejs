@@ -21,13 +21,13 @@
             <div class="row">
               <div class="col-md-9 col-lg-8 mx-auto">
                 <h3 class="login-heading mb-4" style="text-align: center;">Welcome back!</h3>
-                <form id="form">
+                <form id="form" >
                   <div class="form-label-group">
-                    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required>
+                    <input type="email" id="username" name="username" class="form-control" placeholder="Email address" required>
                    
                   </div>
                   <div class="form-label-group">
-                    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
                   
                   </div>
 
@@ -36,7 +36,7 @@
                     <input type="radio" name="account_type"> Volunteer Login
                   </div>
                   <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
-                    type="submit">Sign in</button>
+                    type="submit" id="login">Sign in</button>
                   <div class="text-center">
                     <a href="#">Forgot password?</a> / <a href="/regpage">Create New Accout</a></div>
 
@@ -48,6 +48,38 @@
       </div>
     </div>
   </div>
+
+  <script>
+    $(document).ready(function(){
+        $("#login").on('click',function(e){
+            e.preventDefault();
+            let username = $("#username").val();
+            let password = $("#password").val();
+            let url = "/login_submit"
+            $.post(url,{username:username,password:password}).done(function(data){
+                console.log(data.login);
+                if(data.login == "Login Successful"){
+                    let geturl = data.redirect;
+                    $(location).attr('href',geturl);
+                }
+                else if(data.unsuccessful == "Invalid Credentials"){
+                    swal({
+                        title:"Invalid Credentials",
+                        text:"Username/Password Incorrect",
+                        icon:"warning",
+                        dangerMode:true,
+                    }).then((willDelete) => {
+                        if (willDelete) {
+                          let geturl = data.redirect;
+                            $(location).attr('href',geturl);
+                        }
+                })
+                }
+                else{}
+            })
+        })
+    })
+</script>
   
 </body>
 

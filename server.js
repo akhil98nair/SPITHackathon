@@ -106,6 +106,11 @@ app.get('/', function (req, res) {
   res.render('pages/start');
 });
 
+//Setting the homepage or start page Route
+app.post('/', function (req, res) {
+  res.render('pages/start');
+});
+
 app.get('/map', function (req, res) {
   res.render('pages/map');
 });
@@ -185,13 +190,15 @@ app.post('/login_submit', urlencodedParser, function (req, res) {
     // //var connection = getConnection();
     var email_id = req.body.username;
     var password = req.body.password;
+    console.log(email_id,password)
     if (email_id && password) {
-      var qry = `select name, user_id, user_type, email_id, user_password from users where email_id='${req.body.username}';`
+      var qry = `select name,user_id, account_type, email_id,password from user_details where email_id='${req.body.username}';`
       connection.query(qry, function (error, results, fields) {
         if (error) console.log(error);
         else {
           if (results.length > 0) {
-            var result = bcrypt.compareSync(req.body.password, results[0].user_password);
+            var result = bcrypt.compareSync(req.body.password, results[0].password);
+            console.log(result)
           }
 
           if (results.length > 0 && result == true) {
@@ -199,37 +206,24 @@ app.post('/login_submit', urlencodedParser, function (req, res) {
             req.session.user_id = results[0].user_id;
             req.session.email_id = results[0].email_id;
             req.session.username = results[0].name;
-            var document = mysqlBackbone.Model.extend({
-              connection: connection,
-              tableName: "logs",
-            });
-            var doc = new document({
-              user_id: req.session.user_id,
-              action_performed: "Login",
-              action_info: req.session.user_id + " Logged In",
-              date: dateTime()
-
-            });
-            doc.save().then(function (result) {
-              if (result.affectedRows > 0) {
-                // console.log("Log Added.");
-                var redirect = req.session.returnTo || '/update_delete_users';
+            
+            
+              if (result) {
+                var redirect = '/';
                 res.send({ login: "Login Successful", redirect: redirect });
-              }
-            });
-            // res.redirect(req.session.returnTo || '/update_delete_users')
-          }
-          else {
-            // console.log('Incorrect Username and/or Password!');
-            res.send("Invalid Credentials");
-          }
-        }
-
+              }          
+            }
+            else {
+              console.log("invalid")
+              var redirect = '/loginpage';
+              res.send({unsuccessful:"Invalid Credentials",redirect: redirect});
+            }
+      }
       });
     }
     else {
       // console.log('Please enter Username and Password!');
-      res.redirect("/login");
+      res.redirect("/loginpage");
     }
   }
   catch (error) {
