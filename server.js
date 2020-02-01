@@ -132,7 +132,9 @@ app.get('/dashboard', function (req, res) {
 app.get('/donatefood', function (req, res) {
   res.render('pages/donatefood');
 })
-
+app.get('/addhungerspot', function (req, res) {
+  res.render('pages/addhungerspot');
+})
 //Creating a Listen Port for accepting Requests
 app.listen(port, function () {
   console.log('Listening at port 3000');
