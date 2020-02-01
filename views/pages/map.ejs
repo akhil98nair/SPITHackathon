@@ -1,30 +1,5 @@
-<html>
-  <head>
-    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-    <script src="https://js.api.here.com/v3/3.1/mapsjs-core.js"
-    type="text/javascript" charset="utf-8"></script>
-    <script src="https://js.api.here.com/v3/3.1/mapsjs-service.js"
-    type="text/javascript" charset="utf-8"></script>
-  </head>
-  <body>
-    <div style="width: 640px; height: 480px" id="mapContainer"></div>
-    <script>
-      // Initialize the platform object:
-      var platform = new H.service.Platform({
-        'apikey': 'xEOVjFCMyHALHgJY7x2I1EDLYyFDW-o2nFb2Udsse00'
-      });
-
-      // Obtain the default map types from the platform object
-      var maptypes = platform.createDefaultLayers();
-
-      // Instantiate (and display) a map object:
-      var map = new H.Map(
-        document.getElementById('mapContainer'),
-        maptypes.vector.normal.map,
-        {
-          zoom: 10,
-          center: { lng: 19.042813, lat: 73.0208893 }
-        });
-    </script>
-  </body>
-</html>
+<div style="  height: 400px; width: 100%; background-color: grey;" id="map"></div>
+<script type="text/javascript" src="js/demo.js"></script>
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCIc93upSOh6x63OsPUntFZVcXMO_W6qLM&callback=initMap">
+</script>

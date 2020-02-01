@@ -110,6 +110,10 @@ app.get('/map', function (req, res) {
   res.render('pages/map');
 });
 
+app.get('/hungerspot', function (req, res) {
+  res.render('pages/hunger_spot');
+});
+
 app.get('/loginpage', function (req, res) {
   res.render('pages/loginpage');
 });
