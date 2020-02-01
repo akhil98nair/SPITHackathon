@@ -1,29 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+
 <body>
     <header>
         <%- include('../partials/header.ejs') %>
-      </header>
-    
+    </header>
+
     <section id="donordashboard">
         <div>
-            <h1 class="text-white">Donor Dashboard</h1>
+            <h4>Donor Dashboard</h4>
+
         </div>
     </section>
     <section id="volunteerdashboard">
         <div>
-            <h1 class="text-white">Volunteer Dashboard</h1>
+            <table>
+                <th style="text-align: left; padding-right:35rem; font-weight:600;" class="h3">Pickup Location</th>
+                <th style="text-align: right; font-weight:600;" class="h3">Acceptance</th>
+                <tr>
+                    <td style="text-align: left;">
+                        <h5 style="float:left;">Pickup Address</h5>
+                    </td>
+                    <td style="text-align: right;">
+                        <select>
+                            <option value="I'll Pick">I'll Pick</option>
+                            <option value="I'll Pick">I can't pick</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+
         </div>
     </section>
 
     <footer>
         <%- include('../partials/footer.ejs') %>
-      </footer>
+    </footer>
 </body>
+
 </html>
