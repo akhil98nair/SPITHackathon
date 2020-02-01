@@ -117,7 +117,9 @@ app.get('/hungerspot', function (req, res) {
 app.get('/loginpage', function (req, res) {
   res.render('pages/loginpage');
 });
-
+app.get('/supportus', function (req, res) {
+  res.render('pages/supportus');
+});
 app.get('/foodrequest', function (req, res) {
   res.render('pages/food_request');
 });
@@ -134,7 +136,9 @@ app.get('/dashboard', function (req, res) {
 app.get('/donatefood', function (req, res) {
   res.render('pages/donatefood');
 })
-
+app.get('/addhungerspot', function (req, res) {
+  res.render('pages/addhungerspot');
+})
 //Creating a Listen Port for accepting Requests
 app.listen(port, function () {
   console.log('Listening at port 3000');
