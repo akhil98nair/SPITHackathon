@@ -36,13 +36,67 @@
                 <div class="control-group">
                     <div class="form-group floating-label-form-group controls mb-0 pb-1">
 
-                        <input class="form-control btn btn-primary" id="submit" name="submit" type="submit" value="Submit">                          
+                        <input class="form-control btn btn-primary" id="submit" name="submit" type="submit" value="Submit" data-toggle="modal" data-target="#nearbyvolunteers">                          
 
                     </div>
                 </div>
             </form>
         </div>
     </section>
+    <!-- Modal -->
+<div class="modal fade"  id="nearbyvolunteers" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"> Nearby Volunteer Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" >
+
+            <div class="container">
+                <div class="row">
+                  <div class="col-sm-2">
+                    <div class="card" style="width: 15rem;height:12rem">
+                        <div class="card-body">
+                          <h5 class="card-title">Volunteer 1</h5>
+                          <p class="card-text">Contact No:8877887457</p>
+                          <a href="#" class="btn btn-primary" style="text-align:center">Call</a>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="col-sm-2">
+                    <div class="card" style="width: 15rem;height:12rem">
+                        <div class="card-body">
+                          <h5 class="card-title">Volunteer 2</h5>
+                          <p class="card-text">Contact No:8877887457</p>
+                          <a href="#" class="btn btn-primary" style="text-align:center">Call</a>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="col-sm-2">
+                    <div class="card" style="width: 15rem;height:12rem">
+                        <div class="card-body">
+                          <h5 class="card-title">Volunteer 2</h5>
+                          <p class="card-text">Contact No:8877887457</p>
+                          <a href="#" class="btn btn-primary" style="text-align:center">Call</a>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+           
+       
+            
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
     <footer>
         <%- include('../partials/footer.ejs') %>
