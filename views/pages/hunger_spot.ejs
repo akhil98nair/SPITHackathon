@@ -1,65 +1,127 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title></title>
   <style>
     #map {
       height: 100%;
     }
-    html, body {
+
+    html,
+    body {
       height: 100%;
       margin: 0;
       padding: 0;
-    }	
+    }
   </style>
 </head>
+
 <body>
   <header>
     <%- include('../partials/header.ejs') %>
   </header>
-  <div id="map"></div>
+  <form>
+
+    <section>
+      <div>
+      <div>  Details</div>
+        <select id="main_location" name="main_location"><label>Location</label> 
+          <option value="Nerul">
+            Nerul
+          </option>
+          <option value="Vashi">
+            Vashi
+          </option>
+          <option value="Thane">
+            Thane
+          </option>
+        </select>
+        <div>
+          <input placeholder="Detailed Loaction" type="text" name="detailed_location" id="detailed_location">
+        </div>
+        <div>
+          <input type="submit" name="submit" id="submit" value="Submit">
+        </div>
+      </div>
+    </section>
+  </form>
+ 
+ 
+  <div id="map">
   <script>
     let map;
     let markersArray = [];
     let polyline = null;
+    let lat;
+    let lng;
+
 
     function initMap() {
       map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 19.115957599999998, lng: 72.8397202},
+        center: { lat: 19.115957599999998, lng: 72.8397202 },
         zoom: 13
       });
       // map onclick listener 
       var i = 0;
-      map.addListener('click', function(e) {
-    if(i == 0){
-        console.log(e.latLng.lat());
-        console.log(e.latLng.lng()) ;
-        addMarker(e.latLng);
-        i++;
+      map.addListener('click', function (e) {
+        if (i == 0) {
+          lat = e.latLng.lat();
+          lng = e.latLng.lng();
+          console.log("hiiiiiiiiii")
+          addMarker(e.latLng);
+          
+
+         
+
+          i++;
+        }
+
+      })
     }
 
-        
-        
-      }); 
-    }
 
-    
+    $("#submit").on('click',function(e){
+      e.preventDefault();
+      console.log("Submit Clicked")
+      console.log(lat,lng)
+      if($("#main_location").val() == "" || $("#detailed_location").val() == "" || lat == undefined || lng == undefined){
+        swal({
+          title: "Warning",
+          text: "Please Fill All the details & Corrordinate on Map",
+          icon: "warning"
+        })
+      }else{
+      
+        let url = "/add_slum"
+        $.post(url, {main_location:$("#main_location").val(),detailed_location: $("#detailed_location").val(), lat, lng: lng }).done(function (data) {
+          if (data == "Successfully Added HungerSpot") {
+            swal({
+              title: "Success",
+              text: "Successfully Added HungerSpot",
+              icon: "success"
+            })
+          }
+        });
+      }
+    })
+
     // define function to add marker at given lat & lng
     function addMarker(latLng) {
       let marker = new google.maps.Marker({
-          map: map,
-          position: latLng,
-          draggable: true
+        map: map,
+        position: latLng,
+        draggable: true
       });
 
       // add listener to redraw the polyline when markers position change
-    //   marker.addListener('position_changed', function() {
-        
-    //   });
+      //   marker.addListener('position_changed', function() {
 
-    //   //store the marker object drawn in global array
-    //   markersArray.push(marker);
-    //   console.log(markersArray);
+      //   });
+
+      //   //store the marker object drawn in global array
+      //   markersArray.push(marker);
+      //   console.log(markersArray);
     }
 // console.log(markersArray);
     // define function to draw polyline that connect markers' position
@@ -87,9 +149,12 @@
   </script>
   <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCIc93upSOh6x63OsPUntFZVcXMO_W6qLM&callback=initMap">
-  </script>
+    </script>
   <footer>
     <%- include('../partials/footer.ejs') %>
-</footer>
+  </footer>
+
+ 
 </body>
+
 </html>

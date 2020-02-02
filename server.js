@@ -104,14 +104,13 @@ let count = 0;
 app.use(function (req, res, next) {
   count++
   res.locals.user_id = req.session.user_id;
-  console.log( req.session.user_id)
+  console.log(req.session.user_id)
   res.locals.account_type = req.session.account_type;
   res.locals.username = req.session.username;
   res.locals.result = req.session.result;
   // console.log("hello"+ req.session.result[0].hunger_latitude)
   next();
-  console.log(count)
-  console.log(res.locals.user_id,res.locals.account_type,res.locals.username)
+
 });
 
 
@@ -123,7 +122,8 @@ app.get('/loginpage', function (req, res) {
   if (req.session.account_type == undefined) {
     res.render('pages/loginpage');
   } else {
-    res.redirect('/');}
+    res.redirect('/');
+  }
 });
 
 app.get('/map', function (req, res) {
@@ -153,7 +153,8 @@ app.get('/hungerspot', function (req, res) {
   if (req.session.account_type !== "volunteer") {
     res.redirect('/loginpage');
   } else {
-  res.render('pages/hunger_spot');}
+    res.render('pages/hunger_spot');
+  }
 });
 
 app.get('/supportus', function (req, res) {
@@ -164,7 +165,7 @@ app.get('/regpage', function (req, res) {
   res.render('pages/regpage');
 });
 
-app.post('/submit_regform',urlencodedParser,function(req,res){
+app.post('/submit_regform', urlencodedParser, function (req, res) {
 
   try {
     var qry = `SELECT email_id,mobile_no FROM user_details WHERE  email_id = '${req.body.email_id}' or mobile_no = '${req.body.mobile_no}' `
@@ -179,12 +180,12 @@ app.post('/submit_regform',urlencodedParser,function(req,res){
             connection: connection,
             tableName: "user_details",
           });
-        
+
           var user = new document({
             name: req.body.name,
             email_id: req.body.email_id,
-            password:hash,
-            mobile_no:req.body.mobile_no,
+            password: hash,
+            mobile_no: req.body.mobile_no,
             address: req.body.address,
             account_type: req.body.account_type,
           });
@@ -197,7 +198,7 @@ app.post('/submit_regform',urlencodedParser,function(req,res){
 
         }
         else {
-           if (results[0].email_id.toLowerCase() == req.body.email_id.toLowerCase()) {
+          if (results[0].email_id.toLowerCase() == req.body.email_id.toLowerCase()) {
             res.send("email id already exists");
           }
           else if (results[0].mobile_no == req.body.mobile_no) {
@@ -208,10 +209,33 @@ app.post('/submit_regform',urlencodedParser,function(req,res){
             // console.log("No Problem")
           }
         }
-      }})}
-        catch{console.log("Error")}
+      }
+    })
+  }
+  catch{ console.log("Error") }
 
-  
+
+})
+
+app.post('/add_slum', urlencodedParser, function (req, res) {
+  var document = mysqlBackbone.Model.extend({
+    connection: connection,
+    tableName: "hunger_spots",
+  });
+
+  var spots = new document({
+    user_id: req.session.user_id,
+    hunger_latitude: req.body.lat,
+    hunger_longitude: req.body.lng,
+    main_location: req.body.main_location,
+    detail_location: req.body.detailed_location
+  });
+  spots.save().then(function (result) {
+    if (result.affectedRows !== 0) {
+     
+      res.send('Successfully Added HungerSpot')
+    }
+  });
 })
 
 // Post Route for Login Submit Button
@@ -221,7 +245,7 @@ app.post('/login_submit', urlencodedParser, function (req, res) {
     // //var connection = getConnection();
     var email_id = req.body.username;
     var password = req.body.password;
-    console.log(email_id,password)
+    console.log(email_id, password)
     if (email_id && password) {
       var qry = `select name,user_id, account_type, email_id,password from user_details where email_id='${req.body.username}';`
       connection.query(qry, function (error, results, fields) {
@@ -229,7 +253,7 @@ app.post('/login_submit', urlencodedParser, function (req, res) {
         else {
           if (results.length > 0) {
             var result = bcrypt.compareSync(req.body.password, results[0].password);
-            
+
           }
           console.log(results)
 
@@ -238,19 +262,19 @@ app.post('/login_submit', urlencodedParser, function (req, res) {
             req.session.user_id = results[0].user_id;
             req.session.email_id = results[0].email_id;
             req.session.username = results[0].name;
-            
-            
-              if (result) {
-                var redirect = '/';
-                res.send({ login: "Login Successful", redirect: redirect });
-              }          
+
+
+            if (result) {
+              var redirect = '/';
+              res.send({ login: "Login Successful", redirect: redirect });
             }
-            else {
-              console.log("invalid")
-              var redirect = '/loginpage';
-              res.send({unsuccessful:"Invalid Credentials",redirect: redirect});
-            }
-      }
+          }
+          else {
+            console.log("invalid")
+            var redirect = '/loginpage';
+            res.send({ unsuccessful: "Invalid Credentials", redirect: redirect });
+          }
+        }
       });
     }
     else {
@@ -267,29 +291,29 @@ app.post('/login_submit', urlencodedParser, function (req, res) {
 app.get('/dashboard', function (req, res) {
   if (req.session.account_type == "volunteer" || req.session.account_type == "donor") {
     res.render('pages/dashboard');
-    
+
   }
-  else{
+  else {
     res.redirect('/loginpage');
-    }
+  }
 })
 
 app.get('/donatefood', function (req, res) {
   if (req.session.account_type !== "donor") {
     res.redirect('/loginpage');
   } else {
-  res.render('pages/donatefood');
-}
+    res.render('pages/donatefood');
+  }
 })
 app.get('/addhungerspot', function (req, res) {
   if (!req.session.account_type !== "volunteer") {
     res.redirect('/loginpage');
   } else {
-  res.render('pages/addhungerspot');
+    res.render('pages/addhungerspot');
   }
 })
 
-app.get('/logout',function(req,res){
+app.get('/logout', function (req, res) {
   req.session.destroy();
   res.redirect("/");
 })
