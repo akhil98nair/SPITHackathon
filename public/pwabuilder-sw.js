@@ -7,7 +7,6 @@ const precacheFiles = [
   "/hungerspot",
   "/loginpage",
   "/supportus",
-  "/foodrequest",
   "/regpage",
   "/dashboard",
   "/donatefood"
