@@ -22,7 +22,6 @@ var datetime = new Date();
 var today_date = datetime.toISOString().slice(0, 10);
 //joining path of directory 
 const directoryPath = path.join(__dirname, 'public/uploads');
-var doc_id, insert_id;
 
 //memory leak issue solving line and session creation
 var MemoryStore = require('memorystore')(session)
@@ -61,11 +60,11 @@ connection.connect(function (err) {
 });
 
 
-//for cache control
-app.use(function (req, res, next) {
-  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-  next();
-})
+// //for cache control
+// app.use(function (req, res, next) {
+//   res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+//   next();
+// })
 
 
 
@@ -99,16 +98,29 @@ app.use(express.static(__dirname + "/public"));
 app.use(express.static(__dirname + "/views/partials"));
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
+let count = 0;
+//for passing session to ejs
+app.use(function (req, res, next) {
+  count++
+  res.locals.user_id = req.session.user_id;
+  console.log( req.session.user_id)
+  res.locals.account_type = req.session.account_type;
+  res.locals.username = req.session.username;
+  next();
+  console.log(count)
+  console.log(res.locals.user_id,res.locals.account_type,res.locals.username)
+});
 
 
 //Setting the homepage or start page Route
 app.get('/', function (req, res) {
   res.render('pages/start');
 });
-
-//Setting the homepage or start page Route
-app.post('/', function (req, res) {
-  res.render('pages/start');
+app.get('/loginpage', function (req, res) {
+  if (req.session.account_type == undefined) {
+    res.render('pages/loginpage');
+  } else {
+    res.redirect('/');}
 });
 
 app.get('/map', function (req, res) {
@@ -116,17 +128,14 @@ app.get('/map', function (req, res) {
 });
 
 app.get('/hungerspot', function (req, res) {
-  res.render('pages/hunger_spot');
+  if (!req.session.account_type !== "volunteer") {
+    res.redirect('/loginpage');
+  } else {
+  res.render('pages/hunger_spot');}
 });
 
-app.get('/loginpage', function (req, res) {
-  res.render('pages/loginpage');
-});
 app.get('/supportus', function (req, res) {
   res.render('pages/supportus');
-});
-app.get('/foodrequest', function (req, res) {
-  res.render('pages/food_request');
 });
 
 app.get('/regpage', function (req, res) {
@@ -198,11 +207,12 @@ app.post('/login_submit', urlencodedParser, function (req, res) {
         else {
           if (results.length > 0) {
             var result = bcrypt.compareSync(req.body.password, results[0].password);
-            console.log(result)
+            
           }
+          console.log(results)
 
           if (results.length > 0 && result == true) {
-            req.session.user_type = results[0].user_type;
+            req.session.account_type = results[0].account_type;
             req.session.user_id = results[0].user_id;
             req.session.email_id = results[0].email_id;
             req.session.username = results[0].name;
@@ -233,14 +243,33 @@ app.post('/login_submit', urlencodedParser, function (req, res) {
 
 
 app.get('/dashboard', function (req, res) {
-  res.render('pages/dashboard');
+  if (req.session.account_type == "volunteer" || req.session.account_type == "donor") {
+    res.render('pages/dashboard');
+    
+  }
+  else{
+    res.redirect('/loginpage');
+    }
 })
 
 app.get('/donatefood', function (req, res) {
+  if (!req.session.account_type !== "donor") {
+    res.redirect('/loginpage');
+  } else {
   res.render('pages/donatefood');
+}
 })
 app.get('/addhungerspot', function (req, res) {
+  if (!req.session.account_type !== "volunteer") {
+    res.redirect('/loginpage');
+  } else {
   res.render('pages/addhungerspot');
+  }
+})
+
+app.get('/logout',function(req,res){
+  req.session.destroy();
+  res.redirect("/");
 })
 //Creating a Listen Port for accepting Requests
 app.listen(port, function () {
