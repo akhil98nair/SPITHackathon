@@ -6,13 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script>
+       console.log(sessionStorage)
+    </script>
 </head>
 
 <body>
     <header>
         <%- include('../partials/header.ejs') %>
     </header>
-
+<% if(account_type == "donor") { %> 
     <section id="donordashboard">
         <div>
             <h2 style="font-weight: 600;">Donor Dashboard</h2>
@@ -25,14 +28,23 @@
                     </td>
                     <td style="text-align: right;">
                         <select>
-                            <option value="I'll Pick">I'll Pick</option>
-                            <option value="I'll Pick">I can't pick</option>
+                            <option value="I'll Pick">Order Picked</option>
+                            <option value="I'll Pick">Not Available</option>
                         </select>
+                    </td>
+                   
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" class="btn btn-primary" value="Update Status" name="updatedonorstatus" id="updatedonorstatus">
                     </td>
                 </tr>
             </table>
         </div>
     </section>
+    <% } %>
+    <% if(account_type == "volunteer") { %> 
+
     <section id="volunteerdashboard">
         <div>
             <h2 style="font-weight: 600;">Volunteer Dashboard</h2>
@@ -54,6 +66,7 @@
 
         </div>
     </section>
+    <% } %>
 
     <footer>
         <%- include('../partials/footer.ejs') %>
