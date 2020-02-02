@@ -161,10 +161,14 @@
     </section>
     <% } %>
     <script>
+        if("<%= account_type %>" == "volunteer"){
+
         $(".updatevolunteerstatus").on('click', function (e) {
             e.preventDefault();
-            console.log($("#volunteerdropdown").val())
-            if ($("#volunteerdropdown").val() == "I'll Pick") {
+            console.log("Hello"+$("#volunteerdropdown").val())
+            var response = $("#volunteerdropdown").val();
+            console.log(!response.localeCompare("I'll Pick"))
+            if (!response.localeCompare("I'll Pick")) {
                 swal({
                     title: "Thanks",
                     text: "The donor will be waiting for you!",
@@ -179,33 +183,36 @@
                     dangerMode: true,
                 }) 
             }
-        })
-
+        });
+    }
     
 
     </script>
     <script>
-        $("input#btn").on('click', function (e) {
-            e.preventDefault();
-            console.log($("#donordropdown").val())
-            if ($("#donordropdown").val() == "Order Picked") {
-                swal({
-                    title: "Thanks",
-                    text: "Thanks for the feedback",
-                    icon: "success",
-                    dangerMode: true,
-                }) 
+if("<%= account_type %>" == "donor"){
+    $("input#btn").on('click', function (e) {
+        e.preventDefault();
+        console.log($("#donordropdown").val())
+        if ($("#donordropdown").val() == "Order Picked") {
+            swal({
+                title: "Thanks",
+                text: "Thanks for the feedback",
+                icon: "success",
+                dangerMode: true,
+            }) 
 
-            }else{
-                swal({
-                    title: "Sorry!",
-                    text: "Sorry we can't pick the food on time",
-                    icon: "warning",
-                    dangerMode: true,
-                }) 
-            }
-        })
+        }else{
+            swal({
+                title: "Sorry!",
+                text: "Sorry we can't pick the food on time",
+                icon: "warning",
+                dangerMode: true,
+            }) 
+        }
+    })
 
+}
+      
     </script>
     <footer>
         <%- include('../partials/footer.ejs') %>
