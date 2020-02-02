@@ -61,10 +61,10 @@ connection.connect(function (err) {
 
 
 // //for cache control
-// app.use(function (req, res, next) {
-//   res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-//   next();
-// })
+app.use(function (req, res, next) {
+  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+  next();
+})
 
 
 
@@ -128,6 +128,7 @@ app.get('/map', function (req, res) {
 });
 
 app.get('/hungerspot', function (req, res) {
+  console.log(!req.session.account_type !== "volunteer")
   if (!req.session.account_type !== "volunteer") {
     res.redirect('/loginpage');
   } else {
