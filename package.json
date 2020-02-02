@@ -28,6 +28,7 @@
     "multer-ftp": "^1.2.0",
     "mysql": "^2.18.1",
     "mysql-backbone": "^1.0.2",
+    "request": "^2.88.0",
     "sessionstorage": "^0.1.0"
   }
 }

@@ -2,6 +2,7 @@
 var port = process.env.PORT || 3000;
 var session = require('express-session');
 const express = require('express');
+let request = require('request');
 const path = require('path');
 var cookie = require('cookie');
 const mysql = require('mysql');
@@ -106,6 +107,8 @@ app.use(function (req, res, next) {
   console.log( req.session.user_id)
   res.locals.account_type = req.session.account_type;
   res.locals.username = req.session.username;
+  res.locals.result = req.session.result;
+  // console.log("hello"+ req.session.result[0].hunger_latitude)
   next();
   console.log(count)
   console.log(res.locals.user_id,res.locals.account_type,res.locals.username)
@@ -124,7 +127,24 @@ app.get('/loginpage', function (req, res) {
 });
 
 app.get('/map', function (req, res) {
-  res.render('pages/map');
+  try {
+      var qry = `select hunger_latitude, hunger_longitude from hunger_spots;`;
+      connection.query(qry, function (error, results, fields) {
+        if (error) console.log(error);
+        else {
+        
+
+          res.render('pages/map',{result:results});
+          
+      }
+      });
+    
+   
+  }
+  catch (error) {
+    console.log(error);
+  }
+  
 });
 
 app.get('/hungerspot', function (req, res) {
