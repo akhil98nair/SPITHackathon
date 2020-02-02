@@ -6,13 +6,12 @@ const precacheFiles = [
   "/",
   "/hungerspot",
   "/loginpage",
-  "/map",
   "/supportus",
   "/foodrequest",
   "/regpage",
   "/dashboard",
-  "/donatefood",
-  "/addhungerspot"
+  "/donatefood"
+ 
 ];
 
 self.addEventListener("install", function (event) {
