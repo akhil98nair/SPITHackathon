@@ -11,7 +11,6 @@ const precacheFiles = [
   "/regpage",
   "/dashboard",
   "/donatefood"
- 
 ];
 
 self.addEventListener("install", function (event) {
