@@ -208,7 +208,7 @@ app.post('/add_slum', urlencodedParser, function (req, res) {
     hunger_latitude: req.body.lat,
     hunger_longitude: req.body.lng,
     main_location: req.body.main_location,
-    detailed_location: req.body.detailed_location
+    detail_location: req.body.detailed_location
   });
   spots.save().then(function (result) {
     if (result.affectedRows !== 0) {

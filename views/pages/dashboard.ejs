@@ -10,33 +10,51 @@
         console.log(sessionStorage)
     </script>
     <style>
-        th{
+        th {
             width: 85%;
         }
-        h2{
+
+        h2 {
             font-size: 1.75rem !important;
             font-weight: 500 !important;
-          }
-          h5{
-           font-size: 1rem !important;
-          }
-          h3{
-              font-size: 1.5rem !important;
-          }
-          select{
-              font-size: 1rem !important;
-          }
-          .btn{
-              text-align: center !important;
-              width: 35% !important;
-              margin-left: auto;
-              margin-right: auto;
-          }
-          
+        }
+
+        h5 {
+            font-size: 1rem !important;
+        }
+
+        h3 {
+            font-size: 1.5rem !important;
+        }
+
+        select {
+            font-size: 1rem !important;
+        }
+
+        td {
+            text-align: left !important;
+        }
+
+        th {
+            text-align: left !important;
+        }
+
+        #btn {
+            text-align: center !important;
+            width: 35% !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+        }
+
         @media (max-width: 670px) {
-            th{
+            section {
+                width: 80%;
+            }
+
+            th {
                 width: 35% !important;
             }
+
             h2 {
                 font-size: 1.75rem !important;
                 font-weight: 600 !important;
@@ -57,8 +75,17 @@
             #btn {
                 text-align: center !important;
                 width: 100% !important;
-                margin-left: auto !important;
-                margin-right: auto !important;
+                margin-left: 2% !important;
+                margin-right: 2% !important;
+                padding-top: 2% !important;
+            }
+
+            td {
+                padding-top: 2%;
+                text-align: center !important;
+                margin-left: 2% !important;
+                margin-right: 2% !important;
+
             }
         }
     </style>
@@ -84,17 +111,16 @@
                         <h5 style="float:left;">Pickup Address</h5>
                     </td>
                     <td style="text-align: right;">
-                        <select>
-                            <option value="I'll Pick">Order Picked</option>
-                            <option value="I'll Pick">Not Available</option>
+                        <select id="donordropdown">
+                            <option value="Order Picked">Order Picked</option>
+                            <option value="Not Available">Not Available</option>
                         </select>
                     </td>
 
                 </tr>
                 <tr>
                     <td>
-                        <input type="submit" id="btn" class="btn btn-primary" value="Update Status" name="updatedonorstatus"
-                            id="updatedonorstatus">
+                        <center> <input type="submit" id="btn" class="btn btn-primary updatedonorstatus" value="Update Status" name="updatestatus"></center>
                     </td>
                 </tr>
             </table>
@@ -107,23 +133,26 @@
         <div>
             <h2 style="font-weight: 600;">Volunteer Dashboard</h2>
             <table>
-                <th style=" font-weight:600;" ><h3>Pickup Location</h3></th>
-                <th style=" font-weight:600;" ><h3>Acceptance</h3></th>
+                <th style=" font-weight:600;">
+                    <h3>Pickup Location</h3>
+                </th>
+                <th style=" font-weight:600;">
+                    <h3>Acceptance</h3>
+                </th>
                 <tr>
                     <td style="text-align: left;">
-                        <h5 >Pickup Address</h5>
+                        <h5>Pickup Address</h5>
                     </td>
                     <td style="text-align: right;">
-                        <select>
+                        <select id="volunteerdropdown">
                             <option value="I'll Pick">I'll Pick</option>
-                            <option value="I'll Pick">I can't pick</option>
+                            <option value="I can't Pick">I can't pick</option>
                         </select>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <input type="submit" id="btn" class="btn btn-primary" value="Update Status" name="updatepickupstatus"
-                            id="updatevolunteerstatus">
+                        <center> <input type="submit" id="btn" class="btn btn-primary updatevolunteerstatus" value="Update Status" name="updatepickupstatus" ></center>
                     </td>
                 </tr>
             </table>
@@ -131,7 +160,53 @@
         </div>
     </section>
     <% } %>
+    <script>
+        $(".updatevolunteerstatus").on('click', function (e) {
+            e.preventDefault();
+            console.log($("#volunteerdropdown").val())
+            if ($("#volunteerdropdown").val() == "I'll Pick") {
+                swal({
+                    title: "Thanks",
+                    text: "The donor will be waiting for you!",
+                    icon: "success",
+                    dangerMode: true,
+                })
+            }else{
+                swal({
+                    title: "It's Ok",
+                    text: "Hope you can pick next time",
+                    icon: "warning",
+                    dangerMode: true,
+                }) 
+            }
+        })
 
+    
+
+    </script>
+    <script>
+        $("input#btn").on('click', function (e) {
+            e.preventDefault();
+            console.log($("#donordropdown").val())
+            if ($("#donordropdown").val() == "Order Picked") {
+                swal({
+                    title: "Thanks",
+                    text: "Thanks for the feedback",
+                    icon: "success",
+                    dangerMode: true,
+                }) 
+
+            }else{
+                swal({
+                    title: "Sorry!",
+                    text: "Sorry we can't pick the food on time",
+                    icon: "warning",
+                    dangerMode: true,
+                }) 
+            }
+        })
+
+    </script>
     <footer>
         <%- include('../partials/footer.ejs') %>
     </footer>
