@@ -6,27 +6,112 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script>
+        console.log(sessionStorage)
+    </script>
+    <style>
+        th{
+            width: 85%;
+        }
+        h2{
+            font-size: 1.75rem !important;
+            font-weight: 500 !important;
+          }
+          h5{
+           font-size: 1rem !important;
+          }
+          h3{
+              font-size: 1.5rem !important;
+          }
+          select{
+              font-size: 1rem !important;
+          }
+          .btn{
+              text-align: center !important;
+              width: 35% !important;
+              margin-left: auto;
+              margin-right: auto;
+          }
+          
+        @media (max-width: 670px) {
+            th{
+                width: 35% !important;
+            }
+            h2 {
+                font-size: 1.75rem !important;
+                font-weight: 600 !important;
+            }
+
+            h5 {
+                font-size: 0.75rem !important;
+            }
+
+            h3 {
+                font-size: 1.25rem !important;
+            }
+
+            select {
+                font-size: 1rem !important;
+            }
+
+            #btn {
+                text-align: center !important;
+                width: 100% !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
     <header>
         <%- include('../partials/header.ejs') %>
     </header>
-
+    <% if(account_type == "donor") { %>
     <section id="donordashboard">
         <div>
-            <h4>Donor Dashboard</h4>
-
-        </div>
-    </section>
-    <section id="volunteerdashboard">
-        <div>
+            <h2 style="font-weight: 600;">Donor Dashboard</h2>
             <table>
-                <th style="text-align: left; padding-right:35rem; font-weight:600;" class="h3">Pickup Location</th>
-                <th style="text-align: right; font-weight:600;" class="h3">Acceptance</th>
+                <th style="font-weight:600;">
+                    <h3>Pickup Location</h3>
+                </th>
+                <th style="font-weight:600;">
+                    <h3>Acceptance</h3>
+                </th>
                 <tr>
                     <td style="text-align: left;">
                         <h5 style="float:left;">Pickup Address</h5>
+                    </td>
+                    <td style="text-align: right;">
+                        <select>
+                            <option value="I'll Pick">Order Picked</option>
+                            <option value="I'll Pick">Not Available</option>
+                        </select>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" id="btn" class="btn btn-primary" value="Update Status" name="updatedonorstatus"
+                            id="updatedonorstatus">
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </section>
+    <% } %>
+    <% if(account_type == "volunteer") { %>
+
+    <section id="volunteerdashboard">
+        <div>
+            <h2 style="font-weight: 600;">Volunteer Dashboard</h2>
+            <table>
+                <th style=" font-weight:600;" ><h3>Pickup Location</h3></th>
+                <th style=" font-weight:600;" ><h3>Acceptance</h3></th>
+                <tr>
+                    <td style="text-align: left;">
+                        <h5 >Pickup Address</h5>
                     </td>
                     <td style="text-align: right;">
                         <select>
@@ -35,10 +120,17 @@
                         </select>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <input type="submit" id="btn" class="btn btn-primary" value="Update Status" name="updatepickupstatus"
+                            id="updatevolunteerstatus">
+                    </td>
+                </tr>
             </table>
 
         </div>
     </section>
+    <% } %>
 
     <footer>
         <%- include('../partials/footer.ejs') %>

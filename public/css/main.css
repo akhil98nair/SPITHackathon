@@ -190,17 +190,18 @@ form{
     width: 80%;
     margin-left: auto;
     margin-right: auto;
-    padding-top: 40px;
+    /* padding-top: 40px; */
     padding-bottom: 40px;
     text-align: center;
 }
 
 .btn{
-    width:100px;
+    width: 50%;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
 }
+
 
 
 #regsection {   

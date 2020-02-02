@@ -2,15 +2,15 @@ function initMap() {
   var center = {lat: 19.06594216466549, lng: 73.00267323751609};
   var locations = [
     ['Slum 1<br>\
-       <a href="/">Check Volunteers</a>', 19.2183072435819, 72.83263216143747],
+    <input style="width:100%" class="form-control btn btn-primary" id="submit" name="submit" type="submit" value="Donate Food Here" data-toggle="modal" data-target="#nearbyvolunteers">', 19.2183072435819, 72.83263216143747],
     ['Slum 2<br>\
-   <a href="/">Check Volunteers</a>', 19.066302172508813, 73.00299433382882],
+    <input style="width:100%" class="form-control btn btn-primary" id="submit" name="submit" type="submit" value="Donate Food Here" data-toggle="modal" data-target="#nearbyvolunteers">', 19.066302172508813, 73.00299433382882],
     ['Slum 3<br>\
-    <a href="/">Check Volunteers</a>', 19.06594216466549, 73.00267323751609],
+    <input style="width:100%" class="form-control btn btn-primary" id="submit" name="submit" type="submit" value="Donate Food Here" data-toggle="modal" data-target="#nearbyvolunteers">', 19.06594216466549, 73.00267323751609],
     ['Slum 4<br>\
-    <a href="/">Check Volunteers</a>', 19.066626632624107, 73.00187930364768],
+    <input style="width:100%" class="form-control btn btn-primary" id="submit" name="submit" type="submit" value="Donate Food Here" data-toggle="modal" data-target="#nearbyvolunteers">', 19.066626632624107, 73.00187930364768],
     ['Slum 5<br>\
-   <a href="/">Check Volunteers</a>', 19.066829437402454, 73.00272688169639]
+    <input style="width:100%" class="form-control btn btn-primary" id="submit" name="submit" type="submit" value="Donate Food Here" data-toggle="modal" data-target="#nearbyvolunteers">', 19.066829437402454, 73.00272688169639]
   ];
 var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 16,
