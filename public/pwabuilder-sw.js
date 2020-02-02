@@ -1,17 +1,14 @@
 // This is the service worker with the Cache-first network
 
-const CACHE = "pwabuilder-precache";
+const CACHE = "pwabuilder-precache2";
 const precacheFiles = [
   /* Add an array of files to precache for your app */
   "/",
-  "/hungerspot",
   "/loginpage",
   "/supportus",
-  "/foodrequest",
   "/regpage",
   "/dashboard",
   "/donatefood"
- 
 ];
 
 self.addEventListener("install", function (event) {
