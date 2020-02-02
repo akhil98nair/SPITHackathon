@@ -128,8 +128,9 @@ app.get('/map', function (req, res) {
 });
 
 app.get('/hungerspot', function (req, res) {
-  console.log(!req.session.account_type !== "volunteer")
-  if (!req.session.account_type !== "volunteer") {
+  console.log("hungerspot")
+  console.log(req.session.account_type !== "volunteer")
+  if (req.session.account_type !== "volunteer") {
     res.redirect('/loginpage');
   } else {
   res.render('pages/hunger_spot');}
