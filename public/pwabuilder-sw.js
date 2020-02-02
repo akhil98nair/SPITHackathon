@@ -4,7 +4,6 @@ const CACHE = "pwabuilder-precache1";
 const precacheFiles = [
   /* Add an array of files to precache for your app */
   "/",
-  "/hungerspot",
   "/loginpage",
   "/supportus",
   "/regpage",
