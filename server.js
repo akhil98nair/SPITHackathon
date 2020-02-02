@@ -255,7 +255,7 @@ app.get('/dashboard', function (req, res) {
 })
 
 app.get('/donatefood', function (req, res) {
-  if (!req.session.account_type !== "donor") {
+  if (req.session.account_type !== "donor") {
     res.redirect('/loginpage');
   } else {
   res.render('pages/donatefood');
