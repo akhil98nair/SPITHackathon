@@ -1,13 +1,24 @@
+<<<<<<< HEAD
 
 
 <div style="  height: 400px; width: 100%; background-color: grey;" id="map"></div>
 <script src="bootstrap/jquery-3.4.1.slim.min.js"></script>
   <script src="bootstrap/jquery-3.4.1.min.js"></script>
 <script type="text/javascript"></script>
+=======
+<header>
+    <%- include('../partials/header.ejs') %>
+</header>
+<div style="  height: 400px; width: 100%; background-color: grey;" id="map"></div>
+<script src="bootstrap/jquery-3.4.1.slim.min.js"></script>
+<script src="bootstrap/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="js/demo.js"></script>
+>>>>>>> f6fd413160b3c891b3aa475187b862ed61a109a5
 <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCIc93upSOh6x63OsPUntFZVcXMO_W6qLM&callback=initMap">
-</script>
+    </script>
 <script>
+<<<<<<< HEAD
 var pos = {};
 
 if (navigator.geolocation) {
@@ -60,3 +71,56 @@ if (navigator.geolocation) {
   })}
 
 </script>
+=======
+    var pos = {};
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+            console.log("hell" + pos.lat);
+
+            function initMap() {
+        console.log(typeof (pos));
+        console.log(pos);
+        var locations = [];
+        var center = { lat: parseFloat(pos.lat), lng: parseFloat(pos.lng) };
+        " <% if(result !== null && result !== undefined) { %>"
+        " <% for(var i=0; i < result.length; i++){ %>"
+        var a = [];
+        var latitude = '<%= result[i].hunger_latitude %>';
+        var longitude = '<%= result[i].hunger_longitude %>';
+        a = ['Slum <%= i+1 %><br>\
+    <input style="width:100%" class="form-control btn btn-primary" id="submit" name="submit" type="submit" value="Donate Food Here" data-toggle="modal" data-target="#nearbyvolunteers">', parseFloat(latitude), parseFloat(longitude)]
+        console.log("gjhghjg" + a);
+        locations.push(a);
+        "<% }} %>"
+        console.log(locations);
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 8,
+            center: center
+        });
+        var infowindow = new google.maps.InfoWindow({});
+        var marker, count;
+        for (count = 0; count < locations.length; count++) {
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng(locations[count][1], locations[count][2]),
+                map: map,
+                title: locations[count][0]
+            });
+            google.maps.event.addListener(marker, 'click', (function (marker, count) {
+                return function () {
+                    infowindow.setContent(locations[count][0]);
+                    infowindow.open(map, marker);
+                }
+            })(marker, count));
+        }
+    }
+        })
+    } else {
+        location.reload();
+    }
+
+    </script>
+>>>>>>> f6fd413160b3c891b3aa475187b862ed61a109a5
